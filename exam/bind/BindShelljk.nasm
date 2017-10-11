@@ -97,9 +97,6 @@ _start:
         mov sil, 2
         syscall
 
-	;password read and compare section, exit if not same
-	;password is "AAAAAAAA"
-	mov rbx, 0x4141414141414141
 	
 
         ; execve
