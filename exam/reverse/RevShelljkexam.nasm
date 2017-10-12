@@ -86,25 +86,25 @@ _start:
 	;password is "AAAAAAAA"
 	mov rbx, 0x4141414141414141
 
-	;read syscall and check for passphrase
+	;read syscall and check for password
         ;ssize_t read(int fd, void *buf, size_t count);
         ;fd = r9 in rdi
         mov rdi, r9
 
-	;buf = ... in rsi
-        sub rsp,8       ;place for read pw
+	;buf = password in rsi
+        sub rsp,8       ;location for password read
         mov rsi,rsp
 
 	;sycallnumber 0 in rax
         xor rax,rax
 
-	;count = ... in rdx
+	;count = count of chars in password in rdx
         xor rdx,rdx
         add rdx,8
 
         syscall
 
-	 ;compare result, if not same exit gracefully
+	;compare result, if not same exit gracefully
         cmp rbx, [rsi]   ; if same then ZF tripped
         jnz exit    ;if not the same do exit module, otherwise continue
 
